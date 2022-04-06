@@ -170,7 +170,48 @@ export default function WorkoutDetailsPage() {
         .filter(
           (ex) => !data.workout.set.find((set) => set.exerciseId === ex.id)
         )} />
-      {data.workout.set.map((set) => (
+      <table
+        className="table-fixed divide-y divide-gray-300 mt-2 border w-full">
+
+
+        <tbody className="bg-white divide-y divide-gray-300 text-center">
+          <tr>
+            <td className={`px-2 py-2 h-full text-xs`}>
+              100
+            </td>
+            <td className={`px-2 py-2 h-full text-xs`}>
+              10
+            </td>
+            <td className={`px-2 py-2 h-full text-xs`}>
+              Add
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </>
+  );
+}
+
+export function ErrorBoundary({ error }: { error: Error }) {
+  console.error(error);
+
+  return <div>An unexpected error occurred: {error.message}</div>;
+}
+
+export function CatchBoundary() {
+  const caught = useCatch();
+
+  if (caught.status === 404) {
+    return <div>Note not found</div>;
+  }
+
+  throw new Error(`Unexpected caught response with status: ${caught.status}`);
+}
+
+
+/*
+
+ {data.workout.set.map((set) => (
         <div key={set.id}>
           <div>
             {set.exercise.title}{" "}
@@ -231,22 +272,5 @@ export default function WorkoutDetailsPage() {
           </Form>
         </div>
       ))}
-    </>
-  );
-}
 
-export function ErrorBoundary({ error }: { error: Error }) {
-  console.error(error);
-
-  return <div>An unexpected error occurred: {error.message}</div>;
-}
-
-export function CatchBoundary() {
-  const caught = useCatch();
-
-  if (caught.status === 404) {
-    return <div>Note not found</div>;
-  }
-
-  throw new Error(`Unexpected caught response with status: ${caught.status}`);
-}
+*/
